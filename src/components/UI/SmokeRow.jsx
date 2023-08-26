@@ -23,17 +23,19 @@ const SmokeRow =  (props) => {
         <div> 
             <SmokeInput value={props.number}
                 style={{width: '10%'}}
-                disabled='true'
+                disabled
             />
             <SmokeInput value= {props.nameParameter}
                 style={{width:'50%'}}
                 disabled
                 />
+            <SmokeInput value= {props.sign}
+                style={{width:'10%'}}
+                disabled
+                />
             <SmokeInput value={parameter.nameParameter}
                 onChange={e => addNewParam(e)}
-
-                // onChange={e => props.setParameterList({...props.parameterList, props.parameter: e.target.value})}
-                style={{width: '30%'}}
+                style={{width: '20%'}}
             />
             <SmokeInput value= {props.units}
                 style={{width: '10%'}}

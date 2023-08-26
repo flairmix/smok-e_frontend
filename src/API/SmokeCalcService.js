@@ -1,10 +1,10 @@
 import axios from "../../node_modules/axios/index";
 
-const local_devs = 3000
-const local_docker = 8080
-const port_backend = local_docker
-const baseURL = `http://localhost:8000/api/smoke/corridor`
-const baseURL2 = `https://smok-e.ru/api/smoke/corridor`
+
+// const baseURL = `http://localhost:8000/api/smoke/corridor`
+
+const baseURL = 'https://smok-e.ru/api/'
+const baseURL_deploy = `${baseURL}smoke/corridor/`
 
 export default class SmokeCalcService {
     static async getSmokeCalc(
@@ -27,7 +27,7 @@ export default class SmokeCalcService {
             corridor_temp}
             ) 
         {
-        const response = await axios.get(`https://smok-e.ru/api/smoke/corridor/`, {
+        const response = await axios.get(baseURL_deploy, {
             params: {
                 room_systemname : room_systemname,
                 room_name : room_name,

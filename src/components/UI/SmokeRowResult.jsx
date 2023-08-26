@@ -8,14 +8,18 @@ const SmokeRowResult =  (props) => {
         <div> 
             <SmokeInput value={props.number}
                 style={{width: '10%'}}
-                disabled='true'
+                disabled
             />
             <SmokeInput value= {props.nameParameter}
                 style={{width:'50%'}}
                 disabled
                 />
+            <SmokeInput value= {props.sign}
+                style={{width:'10%'}}
+                disabled
+                />
             <SmokeInput value={props.parameter}
-                style={{width: '30%'}}
+                style={{width: '20%'}}
                 disabled
             />
             <SmokeInput value= {props.units}

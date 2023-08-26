@@ -8,9 +8,7 @@ import SmokeRow from './components/UI/SmokeRow';
 import SmokeRowResult from './components/UI/SmokeRowResult';
 import { AppBar, Box, CssBaseline, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '../node_modules/@mui/material/index';
 
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
+import DrawerSmoke from './components/UI/DrawerSmoke';
 
 
 function App() {
@@ -33,7 +31,7 @@ function App() {
 	const local_devs = 3000
 	const local_docker = 8080
 	const port_backend = local_docker
-	const baseURL = `http://localhost:${port_backend}/api`
+	const baseURL = `http://localhost:${port_backend}/api/`
 
 
 	const [smokeParametersInput, setSmokeParametersInput] = useState(
@@ -82,42 +80,36 @@ function App() {
 		})
 
 	function smokeCalcOutput(input){
-		setTimeout(() => {
-			const smokePromise = SmokeCalcService.getSmokeCalc(input)
-				.then(({ data }) => data)
-				.then(data => {setSmokeParametersOutput((prev) => ({...prev, 
-																	room_volume_m3 : data.room_volume_m3,
-																	Fw : data.Fw,
-																	A0 : data.A0,
-																	CALORIFIC_VALUE_WOOD : data.CALORIFIC_VALUE_WOOD,
-																	Fw_unit_fire_load_by_walling : data.Fw_unit_fire_load_by_walling,
-																	v0_air_for_burn : data.v0_air_for_burn,
-																	room_opening_rate : data.room_opening_rate,
-																	unit_fire_load_critical : data.unit_fire_load_critical,
-																	unit_fire_load_by_floor_square : data.unit_fire_load_by_floor_square,
-																	fire_type : data.fire_type,
-																	room_temp_inside_K : data.room_temp_inside_K,
-																	max_temp : data.max_temp,
-																	temp_smoke_coridor : data.temp_smoke_coridor,
-																	corridor_smoke_hight_limit : data.corridor_smoke_hight_limit,
-																	corridor_temp_K : data.corridor_temp_K,
-																	corridor_smoke_temp : data.corridor_smoke_temp,
-																	corridor_door_area : data.corridor_door_area,
-																	smoke_consumption_mass : data.smoke_consumption_mass,
-																	smoke_density : data.smoke_density,
-																	smoke_consumption_vol : data.smoke_consumption_vol
-																	})
-														)
-								}
-					);
-			
-		}, 500);
-		
+		const smokePromise = SmokeCalcService.getSmokeCalc(input)
+			.then(({ data }) => data)
+			.then(data => {setSmokeParametersOutput((prev) => ({...prev, 
+																room_volume_m3 : data.room_volume_m3,
+																Fw : data.Fw,
+																A0 : data.A0,
+																CALORIFIC_VALUE_WOOD : data.CALORIFIC_VALUE_WOOD,
+																Fw_unit_fire_load_by_walling : data.Fw_unit_fire_load_by_walling,
+																v0_air_for_burn : data.v0_air_for_burn,
+																room_opening_rate : data.room_opening_rate,
+																unit_fire_load_critical : data.unit_fire_load_critical,
+																unit_fire_load_by_floor_square : data.unit_fire_load_by_floor_square,
+																fire_type : data.fire_type,
+																room_temp_inside_K : data.room_temp_inside_K,
+																max_temp : data.max_temp,
+																temp_smoke_coridor : data.temp_smoke_coridor,
+																corridor_smoke_hight_limit : data.corridor_smoke_hight_limit,
+																corridor_temp_K : data.corridor_temp_K,
+																corridor_smoke_temp : data.corridor_smoke_temp,
+																corridor_door_area : data.corridor_door_area,
+																smoke_consumption_mass : data.smoke_consumption_mass,
+																smoke_density : data.smoke_density,
+																smoke_consumption_vol : data.smoke_consumption_vol
+																})
+													)
+							}
+				);
 	}
 
 	useEffect( () => {
-		// fetchPosts();
-		
 		smokeCalcOutput(smokeParametersInput);
 			
 		}, [])
@@ -169,7 +161,7 @@ function App() {
 
 	  }
 
-	const drawerWidth = 240;
+	const drawerWidth = 280;
 	
 
 
@@ -188,241 +180,255 @@ function App() {
 					</Typography>
 					</Toolbar>
 				</AppBar>
-				<Drawer
-					sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					'& .MuiDrawer-paper': {
-						width: drawerWidth,
-						boxSizing: 'border-box',
-					},
-					}}
-					variant="permanent"
-					anchor="left"
-				>
-					<Toolbar />
-					<Divider />
-					<List>
-					{['Coridor', 'Zone', 'Send email', 'Drafts'].map((text, index) => (
-						<ListItem key={text} disablePadding>
-						<ListItemButton>
-							<ListItemIcon>
-								<AirOutlinedIcon/>
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-						</ListItem>
-					))}
-					</List>
-					<Divider />
 
-				</Drawer>
+
+				<DrawerSmoke/>
+
+
 				<Box
 					component="main"
 					sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
 				>
 					<Toolbar />
 							
-						<div>
+						<div style={
+							{maxWidth:'800px'}
+						}>
 							<h1 style={{display:'flex', justifyContent:'center', margin:'10px'}}> 
 								Расчет вытяжной вентиляции из коридора 
 							</h1>
 							<SmokeRow
-								number = "1" nameParameter = 'room_systemname'
-								parameter = {smokeParametersInput.room_systemname}
+								number = "1" nameParameter = 'Помещение - номер'
+								parameter = {smokeParametersInput.room_systemname} 
+								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "2" nameParameter = 'room_name'
-								parameter = {smokeParametersInput.room_name}
+								number = "2" nameParameter = 'Помещение - наименование'
+								parameter = {smokeParametersInput.room_name} 
+								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "3" nameParameter = 'room_level'
-								parameter = {smokeParametersInput.room_level}
+								number = "3" nameParameter = 'Этаж'
+								parameter = {smokeParametersInput.room_level} 
+								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "4" nameParameter = 'room_area_m2'
-								parameter = {smokeParametersInput.room_area_m2}
+								number = "4" nameParameter = 'Помещение - площадь'
+								parameter = {smokeParametersInput.room_area_m2} 
+								sign = ''
 								setProps = {handleChangeInput}
 								units = "m2"
 								/>
 							<SmokeRow
-								number = "5" nameParameter = 'room_high_m'
-								parameter = {smokeParametersInput.room_high_m}
+								number = "5" nameParameter = 'Помещение - высота'
+								parameter = {smokeParametersInput.room_high_m} 
+								sign = 'hf'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = "6" nameParameter = 'room_fire_load_density'
-								parameter = {smokeParametersInput.room_fire_load_density}
+								number = "6" nameParameter = 'Плотность пожарной нагрузки'
+								parameter = {smokeParametersInput.room_fire_load_density} 
+								sign = 'qп'
 								setProps = {handleChangeInput}
 								units = " MJ/m2"
 								/>
 							<SmokeRow
-								number = "7" nameParameter = 'room_calorific_value_fire_load'
-								parameter = {smokeParametersInput.room_calorific_value_fire_load}
+								number = "7" nameParameter = 'Средняя теплота сгорания пожарной нагрузки'
+								parameter = {smokeParametersInput.room_calorific_value_fire_load} 
+								sign = 'Qнср'
 								setProps = {handleChangeInput}
 								units = " MJ/kg"
 								/>
 							<SmokeRow
-								number = "8" nameParameter = 'room_temp_inside'
-								parameter = {smokeParametersInput.room_temp_inside}
+								number = "8" nameParameter = 'Помещение - температура'
+								parameter = {smokeParametersInput.room_temp_inside} 
+								sign = 'tr'
 								setProps = {handleChangeInput}
 								units = " C "
 								/>
 							<SmokeRow
-								number = "9" nameParameter = 'corridor_system_name'
-								parameter = {smokeParametersInput.corridor_system_name}
+								number = "9" nameParameter = 'Коридор - номер системы'
+								parameter = {smokeParametersInput.corridor_system_name} 
+								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "10" nameParameter = 'corridor_hight'
-								parameter = {smokeParametersInput.corridor_hight}
+								number = "10" nameParameter = 'Коридор - высота'
+								parameter = {smokeParametersInput.corridor_hight} 
+								sign = 'H'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = "11" nameParameter = 'corridor_door_hight'
-								parameter = {smokeParametersInput.corridor_door_hight}
+								number = "11" nameParameter = 'Коридор - высота двери'
+								parameter = {smokeParametersInput.corridor_door_hight} 
+								sign = 'Hd'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = '12' nameParameter = 'corridor_door_width'
-								parameter = {smokeParametersInput.corridor_door_width}
+								number = '12' nameParameter = 'Коридор - ширина двери'
+								parameter = {smokeParametersInput.corridor_door_width} 
+								sign = 'bd'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = '13' nameParameter = 'corridor_area'
-								parameter = {smokeParametersInput.corridor_area}
+								number = '13' nameParameter = 'Коридор - площадь'
+								parameter = {smokeParametersInput.corridor_area} 
+								sign = 'Ac'
 								setProps = {handleChangeInput}
 								units = "m2"
 								/>
 							<SmokeRow
-								number = '14' nameParameter = 'corridor_lenght'
-								parameter = {smokeParametersInput.corridor_lenght}
+								number = '14' nameParameter = 'Коридор - длина'
+								parameter = {smokeParametersInput.corridor_lenght} 
+								sign = 'lc'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = '15' nameParameter = 'coef_building_type'
-								parameter = {smokeParametersInput.coef_building_type}
+								number = '15' nameParameter = 'Поправочный коэффициент на тип здания'
+								parameter = {smokeParametersInput.coef_building_type} 
+								sign = 'ksm'
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = '16' nameParameter = 'corridor_temp'
-								parameter = {smokeParametersInput.corridor_temp}
+								number = '16' nameParameter = 'Коридор - температура'
+								sign = 'trk'
+								parameter = {smokeParametersInput.corridor_temp} 
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<div style={{border:'1px solid teal'}}></div>
 
 							<SmokeRowResult
-								number = '17' nameParameter = 'room_volume_m3'
-								parameter = {smokeParametersOutput.room_volume_m3}
+								number = '17' nameParameter = 'Помещение - объем'
+								sign='V'
+								parameter = {smokeParametersOutput.room_volume_m3} 
 								units = "m3"
 								/>
 							<SmokeRowResult
-								number = '18' nameParameter = 'Fw'
-								parameter = {smokeParametersOutput.Fw}
+								number = '18' nameParameter = 'Суммарная площадь внутренней поверхности'
+								sign='Fw'
+								parameter = {smokeParametersOutput.Fw} 
 								units = "m2"
 								/>
 							<SmokeRowResult
-								number = '19' nameParameter = 'A0'
-								parameter = {smokeParametersOutput.A0}
+								number = '19' nameParameter = 'Суммарная площадь проемов помещения'
+								sign = 'A0'
+								parameter = {smokeParametersOutput.A0} 
 								units = "m2"
 								/>
 							<SmokeRowResult
-								number = '20' nameParameter = 'CALORIFIC_VALUE_WOOD'
-								parameter = {smokeParametersOutput.CALORIFIC_VALUE_WOOD}
+								number = '20' nameParameter = 'Низшая теплота сгорания древесины'
+								sign= 'Qнд'
+								parameter = {smokeParametersOutput.CALORIFIC_VALUE_WOOD} 
 								units = "MJ/kg"
 								/>
 							<SmokeRowResult
-								number = '21' nameParameter = 'Fw_unit_fire_load_by_walling'
-								parameter = {smokeParametersOutput.Fw_unit_fire_load_by_walling}
+								number = '21' nameParameter = 'Удельная приведенная пожарная нагрузка, к стенам'
+								sign = 'qk'
+								parameter = {smokeParametersOutput.Fw_unit_fire_load_by_walling} 
 								units = "MJ/m2"
 								/>
 							<SmokeRowResult number = '22' 
-								nameParameter = 'v0_air_for_burn' 
-								parameter = {smokeParametersOutput.v0_air_for_burn}
+								nameParameter = 'Удельное количество воздуха для сгорания' 
+								sign = 'V0'
+								parameter = {smokeParametersOutput.v0_air_for_burn} 
 								units = "m3/kg"
 								/>
 							<SmokeRowResult number = '23' 
-								nameParameter = 'room_opening_rate' 
-								parameter = {smokeParametersOutput.room_opening_rate}
+								nameParameter = 'Проемность помещения' 
+								sign='П'
+								parameter = {smokeParametersOutput.room_opening_rate} 
 								units = "m^0.5"
 								/>
 							<SmokeRowResult number = '24' 
-								nameParameter = 'unit_fire_load_critical' 
-								parameter = {smokeParametersOutput.unit_fire_load_critical}
+								nameParameter = 'Удельное критическое количество пожарной нагрузки' 
+								sign='qkкр'
+								parameter = {smokeParametersOutput.unit_fire_load_critical} 
 								units = "kg/m2"
 								/>
 							<SmokeRowResult number = '25' 
-								nameParameter = 'unit_fire_load_by_floor_square' 
-								parameter = {smokeParametersOutput.unit_fire_load_by_floor_square}
+								nameParameter = 'Удельная приведенная пожарная нагрузка к площади' 
+								sign='q0'
+								parameter = {smokeParametersOutput.unit_fire_load_by_floor_square} 
 								units = "kg/m2"
 								/>
 							<SmokeRowResult number = '26' 
-								nameParameter = 'fire_type' 
-								parameter = {smokeParametersOutput.fire_type}
+								nameParameter = 'Вид объемного пожара' 
+								sign = ''
+								parameter = {smokeParametersOutput.fire_type} 
 								units = ""
 								/>
 							<SmokeRowResult number = '27' 
-								nameParameter = 'room_temp_inside_K' 
-								parameter = {smokeParametersOutput.room_temp_inside_K}
+								nameParameter = 'Начальная температура воздуха в помещении' 
+								sign='Tr'
+								parameter = {smokeParametersOutput.room_temp_inside_K} 
 								units = "K"
 								/>
 							<SmokeRowResult number = '28' 
-								nameParameter = 'max_temp' 
-								parameter = {smokeParametersOutput.max_temp}
+								nameParameter = 'Макс. среднеобъемная температура в помещении' 
+								sign = 'T0max'
+								parameter = {smokeParametersOutput.max_temp} 
 								units = "K"
 								/>
 							<SmokeRowResult number = '29' 
-								nameParameter = 'temp_smoke_coridor' 
-								parameter = {smokeParametersOutput.temp_smoke_coridor}
+								nameParameter = 'Температура газов, поступающих в коридор' 
+								sign='T0'
+								parameter = {smokeParametersOutput.temp_smoke_coridor} 
 								units = "C"
 								/>
 							<SmokeRowResult number = '30' 
-								nameParameter = 'corridor_smoke_hight_limit' 
-								parameter = {smokeParametersOutput.corridor_smoke_hight_limit}
+								nameParameter = 'Предельная толщина дымового слоя' 
+								sign='hsm'
+								parameter = {smokeParametersOutput.corridor_smoke_hight_limit} 
 								units = "m"
 								/>
 							<SmokeRowResult number = '31' 
-								nameParameter = 'corridor_temp_K' 
-								parameter = {smokeParametersOutput.corridor_temp_K}
+								nameParameter = 'Коридор - температура воздуха' 
+								sign='Trk'
+								parameter = {smokeParametersOutput.corridor_temp_K} 
 								units = "K"
 								/>
 							<SmokeRowResult number = '32' 
-								nameParameter = 'corridor_smoke_temp' 
-								parameter = {smokeParametersOutput.corridor_smoke_temp}
+								nameParameter = 'Коридор - температура дымовых газов' 
+								sign='Tsm'
+								parameter = {smokeParametersOutput.corridor_smoke_temp} 
 								units = "K"
 								/>
 							<SmokeRowResult number = '33' 
-								nameParameter = 'corridor_door_area' 
-								parameter = {smokeParametersOutput.corridor_door_area}
+								nameParameter = 'Коридор - площадь проема' 
+								sign='Ad'
+								parameter = {smokeParametersOutput.corridor_door_area} 
 								units = "m2"
 								/>
 							<SmokeRowResult number = '34' 
-								nameParameter = 'smoke_consumption_mass' 
-								parameter = {smokeParametersOutput.smoke_consumption_mass}
+								nameParameter = 'Массовый расход удаляемых дымовых газов' 
+								sign='Gsm'
+								parameter = {smokeParametersOutput.smoke_consumption_mass} 
 								units = "kg/sec"
 								/>
 							<SmokeRowResult number = '35' 
-								nameParameter = 'smoke_density' 
-								parameter = {smokeParametersOutput.smoke_density}
+								nameParameter = 'Плотность дымовых газов' 
+								sign='ρsm'
+								parameter = {smokeParametersOutput.smoke_density} 
 								units = "kg/m3"
 								/>
 							<SmokeRowResult number = '36' 
-								nameParameter = 'smoke_consumption_vol' 
-								parameter = {smokeParametersOutput.smoke_consumption_vol}
+								nameParameter = 'Объемный расход удаляемых продуктов горения' 
+								sign='Lsm'
+								parameter = {smokeParametersOutput.smoke_consumption_vol} 
 								units = "m3/h"
 								/>
 
