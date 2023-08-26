@@ -198,112 +198,112 @@ function App() {
 								Расчет вытяжной вентиляции из коридора 
 							</h1>
 							<SmokeRow
-								number = "1" nameParameter = 'Помещение - номер'
+								number = "1" nameParameter = 'room_systemname'
 								parameter = {smokeParametersInput.room_systemname} 
 								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "2" nameParameter = 'Помещение - наименование'
+								number = "2" nameParameter = 'room_name'
 								parameter = {smokeParametersInput.room_name} 
 								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "3" nameParameter = 'Этаж'
+								number = "3" nameParameter = 'room_level'
 								parameter = {smokeParametersInput.room_level} 
 								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "4" nameParameter = 'Помещение - площадь'
+								number = "4" nameParameter = 'room_area_m2'
 								parameter = {smokeParametersInput.room_area_m2} 
 								sign = ''
 								setProps = {handleChangeInput}
 								units = "m2"
 								/>
 							<SmokeRow
-								number = "5" nameParameter = 'Помещение - высота'
+								number = "5" nameParameter = 'room_high_m'
 								parameter = {smokeParametersInput.room_high_m} 
 								sign = 'hf'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = "6" nameParameter = 'Плотность пожарной нагрузки'
+								number = "6" nameParameter = 'room_fire_load_density'
 								parameter = {smokeParametersInput.room_fire_load_density} 
 								sign = 'qп'
 								setProps = {handleChangeInput}
 								units = " MJ/m2"
 								/>
 							<SmokeRow
-								number = "7" nameParameter = 'Средняя теплота сгорания пожарной нагрузки'
+								number = "7" nameParameter = 'room_calorific_value_fire_load'
 								parameter = {smokeParametersInput.room_calorific_value_fire_load} 
 								sign = 'Qнср'
 								setProps = {handleChangeInput}
 								units = " MJ/kg"
 								/>
 							<SmokeRow
-								number = "8" nameParameter = 'Помещение - температура'
+								number = "8" nameParameter = 'room_temp_inside'
 								parameter = {smokeParametersInput.room_temp_inside} 
 								sign = 'tr'
 								setProps = {handleChangeInput}
 								units = " C "
 								/>
 							<SmokeRow
-								number = "9" nameParameter = 'Коридор - номер системы'
+								number = "9" nameParameter = 'corridor_system_name'
 								parameter = {smokeParametersInput.corridor_system_name} 
 								sign = ''
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = "10" nameParameter = 'Коридор - высота'
+								number = "10" nameParameter = 'corridor_hight'
 								parameter = {smokeParametersInput.corridor_hight} 
 								sign = 'H'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = "11" nameParameter = 'Коридор - высота двери'
+								number = "11" nameParameter = 'corridor_door_hight'
 								parameter = {smokeParametersInput.corridor_door_hight} 
 								sign = 'Hd'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = '12' nameParameter = 'Коридор - ширина двери'
+								number = '12' nameParameter = 'corridor_door_width'
 								parameter = {smokeParametersInput.corridor_door_width} 
 								sign = 'bd'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = '13' nameParameter = 'Коридор - площадь'
+								number = '13' nameParameter = 'corridor_area'
 								parameter = {smokeParametersInput.corridor_area} 
 								sign = 'Ac'
 								setProps = {handleChangeInput}
 								units = "m2"
 								/>
 							<SmokeRow
-								number = '14' nameParameter = 'Коридор - длина'
+								number = '14' nameParameter = 'corridor_lenght'
 								parameter = {smokeParametersInput.corridor_lenght} 
 								sign = 'lc'
 								setProps = {handleChangeInput}
 								units = "m"
 								/>
 							<SmokeRow
-								number = '15' nameParameter = 'Поправочный коэффициент на тип здания'
+								number = '15' nameParameter = 'coef_building_typeздания'
 								parameter = {smokeParametersInput.coef_building_type} 
 								sign = 'ksm'
 								setProps = {handleChangeInput}
 								units = ""
 								/>
 							<SmokeRow
-								number = '16' nameParameter = 'Коридор - температура'
+								number = '16' nameParameter = 'corridor_temp'
 								sign = 'trk'
 								parameter = {smokeParametersInput.corridor_temp} 
 								setProps = {handleChangeInput}
