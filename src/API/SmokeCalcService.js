@@ -4,6 +4,9 @@ import axios from "../../node_modules/axios/index";
 // const baseURL = `http://localhost:8000/api/smoke/corridor`
 
 const baseURL = 'https://smok-e.ru/api/'
+
+const URLLocalDebug = 'http://127.0.0.1:8000/smoke/corridor'
+
 const baseURL_deploy = `${baseURL}smoke/corridor/`
 
 export default class SmokeCalcService {

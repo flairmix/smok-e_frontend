@@ -10,14 +10,7 @@ import { AppBar, Box, CssBaseline, Divider, Drawer, List, ListItem, ListItemButt
 
 import DrawerSmoke from './components/UI/DrawerSmoke';
 import SmokeTable from './components/UI/SmokeTable';
-import { Button } from '@mui/base';
-import MyButton from './components/UI/button/MyButton';
-import { Stack, color } from '@mui/system';
-import ContainedButton from './components/UI/button/ContainedButton';
-import HomeIcon from '@mui/icons-material/Home';
-import FunctionsIcon from '@mui/icons-material/Functions';
-import HideSourceIcon from '@mui/icons-material/HideSource';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
+
 
 function App() {
 	const [posts, setPosts] = useState([])
@@ -169,6 +162,7 @@ function App() {
 
 	  }
 
+	const drawerWidth = 280;
 	
 
 
@@ -179,16 +173,17 @@ function App() {
 				<CssBaseline />
 				<AppBar
 					position="fixed"
+					sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
 				>
 					<Toolbar>
-					<Stack direction="row" spacing={2}>
-					<ContainedButton startIcon={<HomeIcon />} > Главная </ContainedButton>
-					<ContainedButton startIcon={<NewspaperIcon />} > Блог </ContainedButton>
-					<ContainedButton startIcon={<FunctionsIcon/>} > Расчеты дымоудаления </ContainedButton>
-					<ContainedButton startIcon={<HideSourceIcon/>} > Расчеты трубопроводов </ContainedButton>
-					</Stack>
+					<Typography variant="h6" noWrap component="div">
+						Расчет противодымной вентиляции 
+					</Typography>
 					</Toolbar>
 				</AppBar>
+
+
+				<DrawerSmoke/>
 
 
 				<Box
@@ -200,7 +195,7 @@ function App() {
 						<div style={
 							{maxWidth:'800px'}
 						}>
-							<h1 style={{display:'flex', justifyContent:'center'}}> 
+							<h1 style={{display:'flex', justifyContent:'center', margin:'10px'}}> 
 								Расчет вытяжной вентиляции из коридора 
 							</h1>
 							<SmokeRow
